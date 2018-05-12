@@ -21,10 +21,10 @@ namespace PlanetGame
 
         public void Execute(float dt)
         {
-            if(Input.GetKeyDown(KeyCode.S))
-            {
-                m_Game.SetState(new GameRunning(this.m_Game));
-            }
+            //if(Input.GetKeyDown(KeyCode.S))
+            //{
+            //    m_Game.SetState(new GameRunning(this.m_Game));
+            //}
         }
 
         public void Exit()

@@ -10,7 +10,7 @@ namespace PlanetGame
 {
     public class GameRunning : IGameState
     {
-        string ResPath = "Planet/Planet_01";
+        string ResPath = "Planet/GameMap";
 
         //IPlanetState m_PlanState;
 
@@ -38,7 +38,7 @@ namespace PlanetGame
                 return;
             }
 
-            m_Plant = GameObject.Instantiate(pPlanetObjIns).GetComponent<GamePlanet>();
+            m_Plant = GameObject.Instantiate(pPlanetObjIns).GetComponentInChildren<GamePlanet>();
 
             m_Plant.ChangeState(new PlanetReady(m_Plant));
         }

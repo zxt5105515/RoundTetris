@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using PlanetGame.UI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,19 +7,20 @@ namespace PlanetGame
 {
     public class GameEntrance : MonoBehaviour
     {
-        GameManager m_Game;
+        UIManager m_UImgr;
 
         // Use this for initialization
         void Start()
         {
-            m_Game = new GameManager();
-            m_Game.InitGame();
+            GameManager.getInstance().InitGame();
+
+            UIManager.getInstance().OpenPage(UIDef.UITitle);
         }
 
         // Update is called once per frame
         void Update()
         {
-            m_Game.UpdateGame(Time.deltaTime);
+            GameManager.getInstance().UpdateGame(Time.deltaTime);
         }
     }
 }

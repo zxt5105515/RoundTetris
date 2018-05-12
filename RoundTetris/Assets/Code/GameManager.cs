@@ -7,6 +7,17 @@ namespace PlanetGame
 {
     public class GameManager
     {
+        static GameManager m_instance = null;
+        public static GameManager getInstance()
+        {
+            if(m_instance == null)
+            {
+                m_instance = new GameManager();
+            }
+
+            return m_instance;
+        }
+
         IGameState m_GameState;
 
         public void InitGame()
