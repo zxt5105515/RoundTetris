@@ -81,7 +81,15 @@ namespace PlanetGame
                         if (offset != 0)
                         {
                             Debug.Log("offset pressed:" + offset);
-                            PostEventData(offset);
+                            if(curpos.x >Camera.main.pixelWidth/2)
+                            {
+                                PostEventData(offset);
+                            }
+                            else
+                            {
+                                PostEventData(-offset);
+                            }
+                            
                         }                        
                     }
                     break;

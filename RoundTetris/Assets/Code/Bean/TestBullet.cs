@@ -17,15 +17,26 @@ public class TestBullet : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-        if(m_SelfBean.State == Bean.BeanState.Move)
+	void Update ()
+    {
+        switch(m_SelfBean.State)
         {
-            Vector2 dir = m_FlyCenter.position - this.transform.position;
-            dir.Normalize();
+            case Bean.BeanState.Move:
+                Vector2 dir = m_FlyCenter.position - this.transform.position;
+                dir.Normalize();
 
-            this.transform.position = new Vector2(
-                this.transform.position.x + dir.x * m_Speed * Time.deltaTime,
-                this.transform.position.y + dir.y * m_Speed * Time.deltaTime);
+                this.transform.position = new Vector2(
+                    this.transform.position.x + dir.x * m_Speed * Time.deltaTime,
+                    this.transform.position.y + dir.y * m_Speed * Time.deltaTime);
+                break;
+            case Bean.BeanState.FlyAway:
+                Vector2 dirback = m_FlyCenter.position - this.transform.position;
+                dirback.Normalize();
+
+                this.transform.position = new Vector2(
+                    this.transform.position.x - dirback.x * m_Speed * Time.deltaTime,
+                    this.transform.position.y - dirback.y * m_Speed * Time.deltaTime);
+                break;
         }
         
     }

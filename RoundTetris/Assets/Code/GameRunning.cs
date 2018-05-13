@@ -1,4 +1,5 @@
-﻿using PlanetGame.Event;
+﻿using PlanetGame.Bean;
+using PlanetGame.Event;
 using PlanetGame.Planet;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,8 @@ namespace PlanetGame
         //IPlanetState m_PlanState;
 
         GamePlanet m_Plant;
+
+        TestBeanEmitter m_Emit;
 
         //public float m_PlantRotateSpeed = 90.0f;
 
@@ -38,7 +41,11 @@ namespace PlanetGame
                 return;
             }
 
-            m_Plant = GameObject.Instantiate(pPlanetObjIns).GetComponentInChildren<GamePlanet>();
+            GameObject MapObj = GameObject.Instantiate(pPlanetObjIns);
+
+            m_Emit = MapObj.GetComponentInChildren<TestBeanEmitter>();
+
+            m_Plant = MapObj.GetComponentInChildren<GamePlanet>();
 
             m_Plant.ChangeState(new PlanetReady(m_Plant));
         }
@@ -47,6 +54,8 @@ namespace PlanetGame
         {
             //m_PlanState.Execute(dt);
             m_Plant.GameUpdate(dt);
+
+            m_Emit.UpdateEmit(dt);
         }
 
         public void Exit()

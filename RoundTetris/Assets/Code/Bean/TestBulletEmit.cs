@@ -13,13 +13,13 @@ public class TestBulletEmit : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(Input.GetMouseButtonDown(0))
-        {
-            GameObject newbullet = Instantiate(m_Bullet);
+		//if(Input.GetMouseButtonDown(0))
+  //      {
+  //          GameObject newbullet = Instantiate(m_Bullet);
 
-            newbullet.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+  //          newbullet.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            newbullet.SetActive(true);
-        }
+  //          newbullet.SetActive(true);
+  //      }
 	}
 }
