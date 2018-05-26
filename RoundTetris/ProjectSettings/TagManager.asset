@@ -13,12 +13,12 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Wall
+  - To_Stage_Ball
+  - Stage_Ball
+  - Planet
+  - Drop_Ball
+  - GCWall
   - 
   - 
   - 

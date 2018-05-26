@@ -30,18 +30,19 @@ namespace PlanetGame
 
         public GameRunning(GameManager gamemgr)
         {
+            m_Game = gamemgr;
         }
 
         public void Enter()
         {
-            GameObject pPlanetObjIns = Resources.Load(ResPath) as GameObject;
-            if(pPlanetObjIns == null)
+            GameObject MapObj = m_Game.MapObj;
+            if (MapObj == null)
             {
-                Debug.LogError("Not Find Planet Res");
+                Debug.LogError("Not Find MapObj");
                 return;
             }
 
-            GameObject MapObj = GameObject.Instantiate(pPlanetObjIns);
+            MapObj.SetActive(true);
 
             m_Emit = MapObj.GetComponentInChildren<TestBeanEmitter>();
 

@@ -10,8 +10,6 @@ namespace PlanetGame.Bean
     {
         CircleCollider2D m_Circle;
 
-        public GameObject[] m_Bullet;
-
         float readyEmit = 1.0f;
         
         void Awake()
@@ -23,22 +21,37 @@ namespace PlanetGame.Bean
         {
             Vector2 pos = FindOneEmitPos();
 
-            if(m_Bullet != null && m_Bullet.Length > 0)
-            {
-                int index = UnityEngine.Random.Range(0, m_Bullet.Length);
+            int type = UnityEngine.Random.Range((int)Bean.BeanType.Min, (int)Bean.BeanType.Max + 1);
 
-                GameObject newbullet = Instantiate(m_Bullet[index]);
+            //debug
+            //type = 1;
 
-                newbullet.SetActive(true);
+            Bean newbullet = Bean.CreateIns((Bean.BeanType)type);
 
-                newbullet.transform.position = pos;
-            }
+            newbullet.State = Bean.BeanState.To_Stage;
+
+            //add
+            newbullet.transform.parent = this.transform;
+            newbullet.gameObject.SetActive(true);
+            newbullet.transform.localPosition = pos;
+
+            //add force
+            Rigidbody2D body = newbullet.GetComponent<Rigidbody2D>();
+            Vector2 force = (Vector2)m_Circle.bounds.center - pos;
+            force.Normalize();
+            force *= 150;
+            body.AddForce(force);
         }
 
         Vector2 FindOneEmitPos()
         {
             float x = UnityEngine.Random.Range(-1.0f, 1.0f);
             float y = UnityEngine.Random.Range(-1.0f, 1.0f);
+
+            //debug
+            //x = 1;
+            //y = 0;
+
             Vector2 dir = new Vector2(x, y);
             dir.Normalize();
             Vector2 offset = dir * m_Circle.radius;

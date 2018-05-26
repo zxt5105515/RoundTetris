@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using PlanetGame;
 
 namespace PlanetGame.Planet
 {
@@ -51,41 +52,55 @@ namespace PlanetGame.Planet
         public void Exit()
         {
             //throw new NotImplementedException();
+            ScrollSpeed tt = new ScrollSpeed();
+            tt.scrollType = ScrollSpeed.ScrollType.Null;
         }
 
         bool m_bChangeToRunning = false;
-        public override void OnEvent<ScrollSpeed>(ScrollSpeed t)
+        public override void OnEvent<GameEvent>(GameEvent evt)
         {
+            ScrollSpeed t = evt as ScrollSpeed;
+            if (t == null) return;
+
             System.Object[] ps = t.GetParam();
-            if (ps != null && ps.Length > 0)
+
+            if(t.scrollType == ScrollSpeed.ScrollType.Rotate)
             {
-                //在控制中 继续
-                if((bool)ps[1])
+                if (ps != null && ps.Length > 0)
                 {
-                    float moveoffset = (float)ps[0];
+                    //在控制中 继续
+                    if ((bool)ps[1])
+                    {
+                        float moveoffset = (float)ps[0];
 
-                    float h = Camera.main.pixelHeight;
-                    float strength =  moveoffset / h;
+                        float h = Camera.main.pixelHeight;
+                        float strength = moveoffset / h;
 
-                    float rot = strength * m_PlantRotateSpeed;
+                        float rot = strength * m_PlantRotateSpeed;
 
-                    m_Planet.UpdateGameRotate(rot);
-                    //m_PlantRotateSpeed = speed;                    
+                        m_Planet.UpdateGameRotate(rot);
+                        //m_PlantRotateSpeed = speed;                    
+                    }
+                    else
+                    {
+                        float moveoffset = (float)ps[0];
+
+                        float h = Camera.main.pixelHeight;
+                        float strength = moveoffset / h;
+
+                        float rot = strength * m_PlantRotateSpeed;
+
+                        m_LastedRot = rot;
+
+                        m_bChangeToRunning = true;
+                    }
+
                 }
-                else
-                {
-                    float moveoffset = (float)ps[0];
-
-                    float h = Camera.main.pixelHeight;
-                    float strength = moveoffset / h;
-
-                    float rot = strength * m_PlantRotateSpeed;
-
-                    m_LastedRot = rot;
-
-                    m_bChangeToRunning = true;
-                }
-
+            }
+            else if(t.scrollType == ScrollSpeed.ScrollType.Move)
+            {
+                Vector3 moveoffset = (Vector3)ps[0];
+                m_Planet.UpdateGamePosition(moveoffset);
             }
         }
     }

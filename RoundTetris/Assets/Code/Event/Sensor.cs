@@ -61,8 +61,7 @@ namespace PlanetGame.Event
 
         public int CompareTo(BaseSensor other) { return other.Priority - priority; }
 
-        /// ///////////////////////////////  
+        public abstract void OnEvent<T1>(T1 t) where T1 : GameEvent;
 
-        abstract public void OnEvent<T>(T t) where T : GameEvent;
     }
 }

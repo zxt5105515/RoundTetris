@@ -7,12 +7,13 @@ namespace PlanetGame
 {
     public class GameEntrance : MonoBehaviour
     {
+        public GameObject MapObj;
         UIManager m_UImgr;
 
         // Use this for initialization
         void Start()
         {
-            GameManager.getInstance().InitGame();
+            GameManager.getInstance().InitGame(MapObj);
 
             UIManager.getInstance().OpenPage(UIDef.UITitle);
         }
